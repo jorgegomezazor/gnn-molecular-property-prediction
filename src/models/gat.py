@@ -1,40 +1,14 @@
-"""
-src/models/gat.py
+"""GATv2 (Brody et al., ICLR 2022) for molecular property regression.
 
-Graph Attention Network (GATv2)
-Reference: Veličković et al., "Graph Attention Networks", ICLR 2018.
-           Brody et al., "How Attentive are Graph Attention Networks?", ICLR 2022 (GATv2).
-
-Architecture:
-  - GATv2Conv layers with multi-head attention
-  - Optional BatchNorm after each layer
-  - Mean/max readout
-  - MLP regression head
-
-Note: We use GATv2 which fixes the static attention issue in the original GAT.
+Using GATv2 rather than the original GAT to avoid the static-attention issue.
 """
 
-import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch_geometric.nn import GATv2Conv, global_mean_pool
 
 
 class GAT(nn.Module):
-    """
-    Graph Attention Network (GATv2) for molecular property regression.
-
-    Args:
-        node_feat_dim   : Input node feature dimension.
-        hidden_dim      : Hidden dimension per head.
-        num_layers      : Number of GATv2 layers.
-        num_heads       : Number of attention heads.
-        concat_heads    : If True, concatenate heads; otherwise average.
-        dropout         : Dropout on node features.
-        attention_dropout: Dropout on attention coefficients.
-        readout         : Graph-level pooling: 'mean'.
-        batch_norm      : Use BatchNorm after each layer.
-    """
 
     def __init__(
         self,
@@ -50,20 +24,19 @@ class GAT(nn.Module):
     ):
         super().__init__()
         self.num_layers = num_layers
-        self.dropout    = dropout
+        self.dropout = dropout
 
-        # Dimension after each layer (concat or average)
         out_per_layer = hidden_dim * num_heads if concat_heads else hidden_dim
 
-        # Input projection
-        self.node_embed = nn.Linear(node_feat_dim, hidden_dim * num_heads
-                                    if concat_heads else hidden_dim)
+        self.node_embed = nn.Linear(
+            node_feat_dim,
+            hidden_dim * num_heads if concat_heads else hidden_dim,
+        )
 
-        # GAT layers
         self.convs = nn.ModuleList()
-        self.bns   = nn.ModuleList()
-        for i in range(num_layers):
-            in_dim = (hidden_dim * num_heads if concat_heads else hidden_dim)
+        self.bns = nn.ModuleList()
+        for _ in range(num_layers):
+            in_dim = hidden_dim * num_heads if concat_heads else hidden_dim
             self.convs.append(
                 GATv2Conv(
                     in_channels=in_dim,
@@ -79,7 +52,6 @@ class GAT(nn.Module):
 
         self.pool = global_mean_pool
 
-        # Head
         self.head = nn.Sequential(
             nn.Linear(out_per_layer, hidden_dim),
             nn.ReLU(),
