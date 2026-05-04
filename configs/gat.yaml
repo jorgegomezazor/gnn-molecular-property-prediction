@@ -1,0 +1,15 @@
+# configs/gat.yaml  —  Graph Attention Network (Veličković et al., ICLR 2018)
+
+defaults:
+  - base
+
+model:
+  name: gat
+  hidden_dim: 64
+  num_layers: 4
+  num_heads: 4
+  concat_heads: true
+  dropout: 0.1
+  attention_dropout: 0.1
+  readout: mean
+  batch_norm: true

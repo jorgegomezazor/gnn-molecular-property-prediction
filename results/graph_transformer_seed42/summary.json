@@ -1,0 +1,55 @@
+{
+  "run_name": "graph_transformer_seed42",
+  "timestamp": "2026-04-15T20:38:00.950967",
+  "test_metrics": {
+    "run": "graph_transformer_seed42",
+    "mae": 0.3975,
+    "rmse": 0.6149
+  },
+  "config": {
+    "dataset": {
+      "name": "QM9",
+      "root": "data/QM9",
+      "target_idx": 0,
+      "target_name": "mu",
+      "target_unit": "D",
+      "split_sizes": [
+        0.8,
+        0.1,
+        0.1
+      ],
+      "seed": 42
+    },
+    "training": {
+      "seed": 42,
+      "epochs": 300,
+      "batch_size": 256,
+      "learning_rate": 0.001,
+      "weight_decay": 1e-05,
+      "scheduler": "cosine",
+      "scheduler_t_max": 300,
+      "early_stopping_patience": 30,
+      "gradient_clip": 5.0
+    },
+    "logging": {
+      "log_dir": "results/",
+      "save_best": true,
+      "log_every_n_epochs": 10
+    },
+    "model": {
+      "name": "graph_transformer",
+      "hidden_dim": 64,
+      "num_layers": 4,
+      "num_heads": 4,
+      "local_gnn": "gin",
+      "global_attn": "transformer",
+      "dropout": 0.1,
+      "attn_dropout": 0.1,
+      "readout": "mean",
+      "pe_type": "none",
+      "pe_dim": 8,
+      "batch_norm": true
+    },
+    "device": "cuda"
+  }
+}

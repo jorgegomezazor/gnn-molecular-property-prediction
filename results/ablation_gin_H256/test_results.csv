@@ -1,0 +1,2 @@
+run,mae,rmse
+ablation_gin_H256,0.3874,0.6021

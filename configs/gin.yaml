@@ -1,0 +1,15 @@
+# configs/gin.yaml  —  Graph Isomorphism Network (Xu et al., ICLR 2019)
+
+defaults:
+  - base
+
+model:
+  name: gin
+  hidden_dim: 64
+  num_layers: 5
+  eps: 0.0
+  train_eps: true
+  readout: sum              # sum | mean
+  mlp_layers: 2
+  dropout: 0.0
+  batch_norm: true

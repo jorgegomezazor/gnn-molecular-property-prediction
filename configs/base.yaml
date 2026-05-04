@@ -1,0 +1,29 @@
+# configs/base.yaml  —  Shared defaults for all models
+
+# ── Dataset ──────────────────────────────────────────────
+dataset:
+  name: QM9
+  root: data/QM9
+  target_idx: 0          # 0=mu, 1=alpha, 2=eps_HOMO, 3=eps_LUMO, ...
+  target_name: "mu"      # human-readable label
+  target_unit: "D"       # Debye
+  split_sizes: [0.8, 0.1, 0.1]   # train / val / test
+  seed: 42
+
+# ── Training ─────────────────────────────────────────────
+training:
+  seed: 42
+  epochs: 300
+  batch_size: 256
+  learning_rate: 0.001
+  weight_decay: 1.0e-5
+  scheduler: cosine      # cosine | step | none
+  scheduler_t_max: 300
+  early_stopping_patience: 30
+  gradient_clip: 5.0
+
+# ── Logging ──────────────────────────────────────────────
+logging:
+  log_dir: results/
+  save_best: true
+  log_every_n_epochs: 10

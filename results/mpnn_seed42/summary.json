@@ -1,0 +1,50 @@
+{
+  "run_name": "mpnn_seed42",
+  "timestamp": "2026-04-15T15:08:12.672375",
+  "test_metrics": {
+    "run": "mpnn_seed42",
+    "mae": 0.45,
+    "rmse": 0.6734
+  },
+  "config": {
+    "dataset": {
+      "name": "QM9",
+      "root": "data/QM9",
+      "target_idx": 0,
+      "target_name": "mu",
+      "target_unit": "D",
+      "split_sizes": [
+        0.8,
+        0.1,
+        0.1
+      ],
+      "seed": 42
+    },
+    "training": {
+      "seed": 42,
+      "epochs": 300,
+      "batch_size": 256,
+      "learning_rate": 0.001,
+      "weight_decay": 1e-05,
+      "scheduler": "cosine",
+      "scheduler_t_max": 300,
+      "early_stopping_patience": 30,
+      "gradient_clip": 5.0
+    },
+    "logging": {
+      "log_dir": "results/",
+      "save_best": true,
+      "log_every_n_epochs": 10
+    },
+    "model": {
+      "name": "mpnn",
+      "hidden_dim": 64,
+      "num_layers": 3,
+      "num_step_message_passing": 3,
+      "readout": "set2set",
+      "set2set_steps": 3,
+      "dropout": 0.0
+    },
+    "device": "cuda"
+  }
+}

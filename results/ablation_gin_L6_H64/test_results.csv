@@ -1,0 +1,2 @@
+run,mae,rmse
+ablation_gin_L6_H64,0.4155,0.6248

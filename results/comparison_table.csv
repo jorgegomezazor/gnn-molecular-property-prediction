@@ -1,0 +1,5 @@
+model,MAE,RMSE
+graph_transformer,0.3975,0.6149
+gin,0.3998,0.6095
+mpnn,0.45,0.6734
+gat,0.4501,0.6501

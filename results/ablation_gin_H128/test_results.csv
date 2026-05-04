@@ -1,0 +1,2 @@
+run,mae,rmse
+ablation_gin_H128,0.3955,0.6065

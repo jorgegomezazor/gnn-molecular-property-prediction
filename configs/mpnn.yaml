@@ -1,0 +1,13 @@
+# configs/mpnn.yaml  —  Neural Message Passing Network (Gilmer et al., ICML 2017)
+
+defaults:
+  - base
+
+model:
+  name: mpnn
+  hidden_dim: 64
+  num_layers: 3
+  num_step_message_passing: 3
+  readout: set2set          # set2set | mean | sum
+  set2set_steps: 3
+  dropout: 0.0
