@@ -110,7 +110,7 @@ Set the random seed (already fixed in configs to **42**):
 python scripts/train.py --config configs/mpnn.yaml --seed 42
 ```
 
-Expected runtime per model on a single GPU (RTX 3060): ~15–25 minutes for 300 epochs.  
+Expected runtime per model on a single GPU (RTX 3060): ~25-35 minutes for 300 epochs.  
 On CPU: ~2–3 hours per model.
 
 ---
